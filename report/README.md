@@ -1,16 +1,19 @@
 # Report
 
-- `EF2039_PA04_20250795_JeonggukPark.pdf`: final two-page submission PDF.
-- `main.tex`, `sec/`, and `figures/`: LaTeX source and generated figures.
-- `main.bib`: STL-10 and Teachable Machine references.
+`EF2039_PA04_20250795_JeonggukPark.pdf` is the final two-page report. The
+remaining files are kept so that the submitted PDF can be reproduced:
 
-Rebuild the result figure from the repository root with:
+- `main.tex`, `preamble.tex`, and `sec/` hold the LaTeX source.
+- `main.bib` lists the STL-10 and Teachable Machine references.
+- `figures/` contains the generated PNG and PDF figure.
+
+Rebuild the result figure from the repository root:
 
 ```powershell
 python .\code\visualization\make_result_figure.py
 ```
 
-Compile from this folder with:
+Then compile the report from this folder:
 
 ```powershell
 pdflatex main.tex

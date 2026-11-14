@@ -1,8 +1,10 @@
 # Processed datasets
 
-- `fixed/`: fixed training conditions and test sets used by runs 1--3.
-- `repeats/`: repeat-specific training conditions and test sets for runs 4--10.
+The `fixed/` directory holds the training conditions and test sets shared by
+runs 1--3. The `repeats/` directory holds separately sampled training and test
+data for runs 4--10.
 
-The raw STL-10 Parquet files and regenerated full 13,000-image source pool are
-excluded from Git because the processed experiment images are already included.
-See `docs/DATASET.md` for source checksums, manifests, and reconstruction.
+The repository includes every processed image used in the experiment. It does
+not duplicate the two raw STL-10 Parquet files or the full 13,000-image
+extraction. Their checksums, source revision, and reconstruction steps are in
+`docs/DATASET.md`.

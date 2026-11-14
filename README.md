@@ -1,72 +1,78 @@
 # Training-Set Contamination in a Three-Class Image Classifier
 
-This repository contains the final code, processed datasets, 100 exported Keras
-models, consolidated evaluation results, and two-page report for EF2039
-Programming Assignment 4.
+EF2039 Programming Assignment 4 tests how contaminated training data changes a
+three-class image classifier. The repository preserves the processed datasets,
+data-preparation and evaluation code, 100 exported Keras models, consolidated
+results, and the final two-page report.
 
 ## Research questions
 
-1. How does the contamination rate affect performance when each assigned class
-   remains fixed at 100 training images?
+1. How does model performance change as the contamination rate rises while
+   each assigned class remains fixed at 100 training images?
 2. At the same contamination rate, do mixed target-class errors, systematic
-   errors, and unseen-class images produce different losses and error patterns?
+   label errors, and unseen-class images produce different losses and error
+   patterns?
 
-The target classes are `airplane`, `monkey`, and `truck`. The unseen
-contamination classes are `dog`, `car`, and `ship`. Every condition contains
-100 assigned training images per target label.
+The target classes are `airplane`, `monkey`, and `truck`. Images of `dog`,
+`car`, and `ship` provide the unseen-class contamination. Every condition has
+100 assigned training images for each target label, so contamination rate and
+type change without changing class size.
 
-## Final results
+## Results
 
-The table reports mean accuracy over ten trained models per condition. Each
-model was evaluated on ten balanced test sets. Values after the plus-minus sign
-are sample standard deviations across the ten model means.
+Each value below is the mean accuracy of ten independently trained models.
+Every model was tested on ten balanced test sets. The value after `±` is the
+sample standard deviation across the ten model means.
 
 | Training condition | 10% | 20% | 30% |
 |---|---:|---:|---:|
-| Mixed target-class noise | 87.77% +/- 2.97 | 79.65% +/- 6.08 | 73.65% +/- 5.72 |
-| Systematic label noise | 86.67% +/- 5.08 | 79.95% +/- 5.02 | 70.03% +/- 6.17 |
-| Unseen-class contamination | 93.61% +/- 1.56 | 91.95% +/- 2.51 | 90.17% +/- 2.21 |
+| Mixed target-class noise | 87.77% ± 2.97 | 79.65% ± 6.08 | 73.65% ± 5.72 |
+| Systematic label noise | 86.67% ± 5.08 | 79.95% ± 5.02 | 70.03% ± 6.17 |
+| Unseen-class contamination | 93.61% ± 1.56 | 91.95% ± 2.51 | 90.17% ± 2.21 |
 
-The clean models achieved 96.22% +/- 0.63. The complete 1,000 evaluation
-summaries and 150,000 image predictions are stored in consolidated CSV files
-under `results/`.
+The clean condition reached 96.22% ± 0.63. The contaminated conditions became
+less accurate as the contamination rate increased, but unseen-class images
+caused a smaller loss than either form of wrong target-class labeling. The
+complete 1,000 evaluation summaries and 150,000 image-level predictions are in
+`results/`.
 
-## Repository layout
+## Repository contents
 
 ```text
 .
 |-- README.md
 |-- code/
-|   |-- data/                 # Dataset conversion and deterministic sampling
-|   |-- evaluation/           # Final all-model and single-model evaluation
+|   |-- data/                 # Dataset conversion and sampling
+|   |-- evaluation/           # Full and single-model evaluation
 |   |-- models/               # Exported-model verification
 |   `-- visualization/        # Report figure generation
-|-- config/                   # Conda and pip environments
+|-- config/                   # Conda and pip environment files
 |-- datasets/
-|   |-- fixed/                # Data shared by training runs 1--3
-|   `-- repeats/              # Repeat-specific data for runs 4--10
-|-- docs/                     # Dataset, model, and upload documentation
+|   |-- fixed/                # Shared data for runs 1--3
+|   `-- repeats/              # Run-specific data for runs 4--10
+|-- docs/                     # Dataset and model documentation
 |-- models/                   # Ten conditions, run_01 through run_10
 |-- report/                   # Final PDF and LaTeX source
-`-- results/                  # Consolidated final CSV results
+`-- results/                  # Consolidated evaluation CSV files
 ```
 
-Only the final ten-repeat analysis is retained. Earlier pilot result folders
-are intentionally excluded from this upload package.
+Only the final ten-run experiment is included. Pilot outputs from earlier
+stages were left out of the submission package.
 
 ## Environment
 
 The evaluation was verified with Python 3.10, TensorFlow 2.15.0, NumPy 1.26.4,
-and OpenCV 4.11.0.
+and OpenCV 4.11.0. The Conda file also installs the packages needed to rebuild
+the datasets and figures.
 
-Create the Conda environment:
+To create the Conda environment:
 
 ```powershell
 conda env create -f .\config\environment.yml
 conda activate pa4
 ```
 
-Alternatively, create a virtual environment and install the pinned packages:
+To use a standard virtual environment instead:
 
 ```powershell
 python -m venv .venv
@@ -74,26 +80,27 @@ python -m venv .venv
 python -m pip install -r .\config\requirements.txt
 ```
 
-## Reproduce the final evaluation
+## Run the evaluation
 
-Run the complete 100-model evaluation from the repository root:
+From the repository root, this command evaluates all ten conditions, ten
+training runs per condition, and ten test sets per model:
 
 ```powershell
 python .\code\evaluation\evaluate_all_models.py
 ```
 
-This recreates the seven result CSV files under `results/`. It evaluates ten
-conditions, ten model-training runs per condition, and ten test sets per model,
-for 1,000 evaluation summaries and 150,000 image predictions.
+It rewrites the seven consolidated CSV files in `results/`, producing 1,000
+evaluation summaries and 150,000 image predictions.
 
-For a quick one-model check, edit the three selection values at the top of
-`code/evaluation/evaluate_single_model.py`, then run:
+For a quick check, edit the three selection values at the top of
+`code/evaluation/evaluate_single_model.py` and run:
 
 ```powershell
 python .\code\evaluation\evaluate_single_model.py
 ```
 
-The all-model evaluator also accepts optional selections. For example:
+The full evaluator also accepts command-line selections. This example tests
+the first clean model on the first test set and writes to `results_smoke/`:
 
 ```powershell
 python .\code\evaluation\evaluate_all_models.py `
@@ -101,20 +108,20 @@ python .\code\evaluation\evaluate_all_models.py `
   --output-dir results_smoke
 ```
 
-## Recreate the report figure
+## Rebuild the report figure
 
 ```powershell
 python .\code\visualization\make_result_figure.py
 ```
 
-The script reads the consolidated final results and updates the PDF and PNG
-figures under `report/figures/`.
+The script reads the consolidated results and updates the PDF and PNG files in
+`report/figures/`.
 
-## Dataset reconstruction
+## Rebuild the datasets
 
-The processed images needed for evaluation are included. To rebuild every
-processed dataset from the original labeled STL-10 Parquet files, place the raw
-files at the paths documented in `docs/DATASET.md`, then run:
+The processed images used by the experiment are already included. To recreate
+them from the labeled STL-10 Parquet files, place the raw files at the paths in
+`docs/DATASET.md` and run:
 
 ```powershell
 python .\code\data\convert_stl10_parquet_to_png.py
@@ -123,15 +130,16 @@ python .\code\data\build_fixed_test_sets.py
 python .\code\data\build_randomized_repeats.py
 ```
 
-Runs 1--3 share the fixed training pools and fixed test suite. Runs 4--10 use
-deterministically sampled training pools and repeat-specific test suites.
-Conditions within the same run share the same target pools and test images.
+Runs 1--3 share the fixed training pools and test suite. Runs 4--10 use
+deterministically sampled training pools and run-specific test suites. Within
+the same run, every condition uses the same target pools and test images.
 
-## Documentation
+## Additional documentation
 
-- `docs/DATASET.md`: exact source revision, checksums, classes, manifests, and
-  reconstruction procedure.
-- `docs/MODEL_SETTINGS.md`: Teachable Machine settings and model naming.
-- `docs/UPLOAD.md`: GitHub upload and clone-verification steps.
-- `code/README.md`, `datasets/README.md`, `models/README.md`, and
-  `results/README.md`: folder-level guides.
+- `docs/DATASET.md` records the source revision, checksums, classes, manifests,
+  and reconstruction procedure.
+- `docs/MODEL_SETTINGS.md` records the Teachable Machine settings and model
+  naming convention.
+- `docs/UPLOAD.md` explains how to clone, update, and verify the GitHub copy.
+- The README files under `code/`, `datasets/`, `models/`, `report/`, and
+  `results/` describe the contents of those folders.

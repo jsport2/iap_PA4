@@ -378,16 +378,19 @@ def paired_differences(
 
 def write_results_readme(results_root: Path) -> None:
     (results_root / "README.md").write_text(
-        "# Final evaluation results\n\n"
-        "All repetitions are stored in consolidated CSV files. Every row includes "
-        "the model condition, `run_id`, training-repeat number, and test-set ID.\n\n"
-        "- `all_evaluations.csv`: one row per model/run/test-set evaluation.\n"
-        "- `all_predictions.csv`: one row per image prediction.\n"
-        "- `class_metrics.csv`: per-class precision, recall, and F1.\n"
-        "- `confusion_matrices.csv`: per-test and aggregate confusion matrices.\n"
-        "- `model_run_statistics.csv`: one row per trained model.\n"
-        "- `condition_statistics.csv`: one row per data condition.\n"
-        "- `paired_differences_vs_clean.csv`: paired accuracy differences.\n",
+        "# Evaluation results\n\n"
+        "Results are grouped by measurement rather than by model folder. Rows "
+        "carry the model condition, training run, and test-set identifiers "
+        "needed to trace an observation back to its source.\n\n"
+        "- `all_evaluations.csv` has one summary per model, run, and test set.\n"
+        "- `all_predictions.csv` has one row per image prediction.\n"
+        "- `class_metrics.csv` records class-level precision, recall, and F1.\n"
+        "- `confusion_matrices.csv` records test-level and aggregate confusion "
+        "matrices.\n"
+        "- `model_run_statistics.csv` summarizes each trained model.\n"
+        "- `condition_statistics.csv` summarizes each data condition.\n"
+        "- `paired_differences_vs_clean.csv` pairs each accuracy with the clean "
+        "condition from the same run and test set.\n",
         encoding="utf-8",
     )
 

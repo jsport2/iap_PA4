@@ -1,26 +1,25 @@
-# GitHub upload and verification
+# GitHub copy and verification
 
-Use Git from the repository root. The final package contains 37,750 files and
-is approximately 0.84 GiB, so browser upload is not recommended.
+The submitted repository is available at
+[github.com/jsport2/iap_PA4](https://github.com/jsport2/iap_PA4). It contains
+37,750 tracked files and is about 0.84 GiB, so cloning with Git is more reliable
+than downloading or uploading the files individually in a browser.
+
+## Clone the repository
 
 ```powershell
-git init
-git add .
-git commit -m "Add PA4 final experiment"
-git branch -M main
-git remote add origin https://github.com/YOUR_ACCOUNT/YOUR_REPOSITORY.git
-git push -u origin main
+git clone https://github.com/jsport2/iap_PA4.git pa4-check
+cd pa4-check
 ```
 
-Replace the placeholder repository URL before pushing. The largest included
-file is `results/all_predictions.csv` at approximately 22.9 MiB; no file
-exceeds GitHub's 100 MB per-file limit.
+No individual file exceeds GitHub's 100 MB limit. The largest file is
+`results/all_predictions.csv`, which is about 22.9 MiB.
 
-After upload, verify reproducibility from a separate directory:
+## Verify the cloned copy
+
+Create the environment, then run one clean model against one test set:
 
 ```powershell
-git clone https://github.com/YOUR_ACCOUNT/YOUR_REPOSITORY.git pa4-check
-cd pa4-check
 conda env create -f .\config\environment.yml
 conda activate pa4
 python .\code\evaluation\evaluate_all_models.py `
@@ -28,5 +27,16 @@ python .\code\evaluation\evaluate_all_models.py `
   --output-dir results_smoke
 ```
 
-The smoke test should create seven CSV files under `results_smoke/` and report
-150 evaluated images.
+A successful smoke test reports 150 evaluated images and creates seven CSV
+files in `results_smoke/`.
+
+## Push later changes
+
+From an existing local clone:
+
+```powershell
+git status
+git add --all
+git commit -m "Describe the change"
+git push origin main
+```

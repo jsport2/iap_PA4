@@ -1,10 +1,10 @@
-# Repeated Test Sets
+# Fixed evaluation test sets
 
-Ten disjoint clean test sets generated from STL-10 test images that were not used by the original model_clean test set.
+These ten clean test sets were selected from the STL-10 test split with random
+seed `20261114`. They do not overlap with one another or with the companion test
+set stored under `model_clean/`.
 
-- Random seed: `20261114`
-- Test sets: `10`
-- Images per class per set: `50`
-- Classes: `airplane`, `monkey`, `truck`
-- Test sets are mutually disjoint.
-- No image overlaps with the original clean test set.
+- Ten test sets
+- 50 images per class in each set
+- Three classes: `airplane`, `monkey`, and `truck`
+- 1,500 evaluated images in total

@@ -93,17 +93,20 @@ def build_test_sets() -> None:
         writer.writerows(manifest_rows)
 
     with (OUTPUT_ROOT / "README.md").open("w", encoding="utf-8") as file:
-        file.write("# Repeated Test Sets\n\n")
+        file.write("# Fixed evaluation test sets\n\n")
         file.write(
-            "Ten disjoint clean test sets generated from STL-10 test images "
-            "that were not used by the original model_clean test set.\n\n"
+            "These ten clean test sets were selected from the STL-10 test "
+            f"split with random seed `{RANDOM_SEED}`. They do not overlap "
+            "with one another or with the companion test set stored under "
+            "`model_clean/`.\n\n"
         )
-        file.write(f"- Random seed: `{RANDOM_SEED}`\n")
-        file.write(f"- Test sets: `{NUMBER_OF_TEST_SETS}`\n")
-        file.write(f"- Images per class per set: `{IMAGES_PER_CLASS}`\n")
-        file.write("- Classes: `airplane`, `monkey`, `truck`\n")
-        file.write("- Test sets are mutually disjoint.\n")
-        file.write("- No image overlaps with the original clean test set.\n")
+        file.write(f"- {NUMBER_OF_TEST_SETS} test sets\n")
+        file.write(f"- {IMAGES_PER_CLASS} images per class in each set\n")
+        file.write("- Three classes: `airplane`, `monkey`, and `truck`\n")
+        file.write(
+            f"- {NUMBER_OF_TEST_SETS * IMAGES_PER_CLASS * len(TARGET_CLASSES):,} "
+            "evaluated images in total\n"
+        )
 
     print(f"Created {NUMBER_OF_TEST_SETS} test sets at {OUTPUT_ROOT}")
     print(f"Manifest rows: {len(manifest_rows)}")

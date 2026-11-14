@@ -1,11 +1,15 @@
-# Final evaluation results
+# Evaluation results
 
-The ten model-training repetitions and ten test sets are consolidated by result type. Each row identifies its model, run, and test set.
+The final results are grouped by measurement rather than by model folder. Rows
+carry the model condition, training run, and test-set identifiers needed to
+trace an observation back to its source.
 
-- `all_evaluations.csv`: 1,000 model/run/test-set summaries.
-- `all_predictions.csv`: 150,000 image-level predictions.
-- `class_metrics.csv`: 3,000 class-level metric rows.
-- `confusion_matrices.csv`: per-test and aggregate confusion matrices.
-- `model_run_statistics.csv`: 100 trained-model summaries.
-- `condition_statistics.csv`: 10 condition summaries.
-- `paired_differences_vs_clean.csv`: 900 paired comparisons.
+- `all_evaluations.csv` has 1,000 model/run/test-set accuracy summaries.
+- `all_predictions.csv` has all 150,000 image-level predictions.
+- `class_metrics.csv` has 3,000 rows of class-level precision, recall, and F1.
+- `confusion_matrices.csv` records both test-level and aggregated confusion
+  matrices.
+- `model_run_statistics.csv` summarizes the 100 trained models.
+- `condition_statistics.csv` summarizes the ten data conditions.
+- `paired_differences_vs_clean.csv` contains 900 accuracy differences paired
+  with the clean condition from the same run and test set.

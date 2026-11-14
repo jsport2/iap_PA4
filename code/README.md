@@ -1,26 +1,29 @@
 # Code
 
-## Data preparation
+The scripts use repository-relative paths and can be run from the repository
+root without editing machine-specific directories.
 
-- `data/convert_stl10_parquet_to_png.py`: extracts the labeled STL-10 Parquet
-  mirror into class-organized PNG files.
-- `data/build_fixed_datasets.py`: creates the ten fixed data conditions.
-- `data/build_fixed_test_sets.py`: creates ten disjoint fixed test sets.
-- `data/build_randomized_repeats.py`: creates training and test data for runs
+## Prepare the data
+
+- `data/convert_stl10_parquet_to_png.py` extracts the labeled STL-10 Parquet
+  files into class-organized PNG directories.
+- `data/build_fixed_datasets.py` builds the ten fixed training conditions.
+- `data/build_fixed_test_sets.py` selects ten disjoint fixed test sets.
+- `data/build_randomized_repeats.py` builds the training and test data for runs
   4--10.
 
-## Evaluation
+## Evaluate the models
 
-- `evaluation/evaluate_all_models.py`: final evaluator; writes consolidated
-  result CSVs.
-- `evaluation/evaluate_single_model.py`: editable one-model smoke test.
-- `evaluation/evaluation_utils.py`: shared image, path, and metric functions.
+- `evaluation/evaluate_all_models.py` evaluates the selected conditions, runs,
+  and test sets, then writes consolidated CSV files.
+- `evaluation/evaluate_single_model.py` provides a short, editable one-model
+  check.
+- `evaluation/evaluation_utils.py` contains the shared path, image-loading, and
+  metric functions.
 
-## Other utilities
+## Check models and rebuild figures
 
-- `models/verify_model.py`: checks one exported Keras model and test dataset.
-- `visualization/make_result_figure.py`: recreates the report figure from the
-  consolidated final results.
-
-All scripts resolve paths from their own location, so they can be launched from
-the repository root without editing absolute paths.
+- `models/verify_model.py` loads one Keras export and checks it against a test
+  dataset.
+- `visualization/make_result_figure.py` recreates the figure used in the final
+  report from the consolidated CSV results.
