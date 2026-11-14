@@ -1,0 +1,16 @@
+\section{Introduction}
+\label{sec:intro}
+
+A mislabeled image removes a correct example and connects its visual features
+to the wrong output. That connection may be diffuse or consistent enough for
+the model to learn a false class relationship. This experiment separates those
+cases while holding class size constant.
+
+Two questions guide the comparison. \textbf{RQ1} asks how the contamination
+rate affects performance when every assigned class still contains 100 training
+images. \textbf{RQ2} asks whether mixed target-class errors, systematic errors,
+and images from unseen classes produce different accuracy losses and error
+patterns. Class imbalance is excluded by design. Each condition is trained ten
+times. Conditions within a repetition share the same target-image pools and
+test images, which keeps each comparison paired while allowing model and data
+selection to vary across the extended repetitions.

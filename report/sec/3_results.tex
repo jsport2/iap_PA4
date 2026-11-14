@@ -1,0 +1,61 @@
+\section{Results and interpretation}
+\label{sec:results}
+
+\paragraph{RQ1: contamination rate.}
+Table~\ref{tab:accuracy} and Fig.~\ref{fig:results} show a monotonic decline for
+every corruption type in the ten-model means. Mixed accuracy fell from 87.77\%
+at 10\% contamination to 73.65\% at 30\%; systematic accuracy fell from
+86.67\% to 70.03\%; and unseen-class accuracy fell from 93.61\% to 90.17\%.
+The corresponding 30\% gaps from clean training were 22.57, 26.19, and 6.05
+percentage points. Individual runs were not perfectly monotonic: the full
+10--20--30\% ordering appeared in nine mixed, nine systematic, and seven unseen
+repetitions. The pooled trend is therefore clear, but a single training run can
+hide it.
+
+\paragraph{RQ2: contamination type.}
+Mixed and systematic errors were much more damaging than unseen-class
+contamination. Systematic accuracy was lower than mixed accuracy at 10\% and
+30\%, but mixed was lower by 0.30 points at 20\%. This small reversal does not
+support a fixed ranking between the two target-label error types. Both attach
+target features to an incorrect target label. The unseen images were balanced
+across labels, so they created no stable link to one target output.
+
+The systematic confusion matrix gives more direct evidence. With 30\%
+contamination, 1,227 of 5,000 airplane predictions were trucks, 1,007 monkey
+predictions were airplanes, and 1,685 truck predictions were monkeys. These
+imposed directions account for 3,919 of 4,496 errors (87.2\%). The models
+therefore learned much of the incorrect cyclic structure.
+
+\begin{table}[b]
+  \centering
+  \caption{Accuracy across ten trained models. Values are
+  mean $\pm$ sample standard deviation of the per-model means over ten test
+  sets.}
+  \label{tab:accuracy}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lccc}
+    \toprule
+    Training data & 10\% & 20\% & 30\% \\
+    \midrule
+    Mixed       & $87.77\pm2.97$ & $79.65\pm6.08$ & $73.65\pm5.72$ \\
+    Systematic  & $86.67\pm5.08$ & $79.95\pm5.02$ & $70.03\pm6.17$ \\
+    Unseen      & $93.61\pm1.56$ & $91.95\pm2.51$ & $90.17\pm2.21$ \\
+    \midrule
+    Clean       & \multicolumn{3}{c}{$96.22\pm0.63$} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Training variation.}
+The clean-model standard deviation was 0.63 percentage points. Variation was
+largest for systematic 30\% and mixed 20\% contamination (6.17 and 6.08
+points). Systematic 30\% model means ranged from 58.87\% to 79.33\%. One
+downloaded model would therefore give a weak estimate of the contamination
+effect.
+
+\paragraph{Limits of the comparison.}
+The first three repetitions share fixed pools, whereas the last seven resample
+training and test data. Teachable Machine hides the training seed, and
+replacement noise also removes correct examples. Results may not generalize
+beyond this architecture, these six STL-10 classes, and the tested rates.

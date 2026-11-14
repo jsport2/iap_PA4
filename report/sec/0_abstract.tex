@@ -1,0 +1,14 @@
+\begin{abstract}
+Corrupted training data can remove correct evidence and teach false class
+relationships. I compared clean training with three forms of 10--30\%
+contamination: mixed target-class errors, a fixed cyclic labeling error, and
+images from classes absent from the task. Each of the ten data conditions was
+trained ten times, giving 100 classifiers. Every classifier was evaluated on
+ten balanced test sets. At 30\%, mean accuracy was 73.65\% for mixed noise,
+70.03\% for systematic noise, and 90.17\% for unseen-class contamination,
+compared with 96.22\% for clean training. Systematic noise caused the largest
+loss at 10\% and 30\%, while mixed noise was 0.30 percentage points lower at
+20\%. The systematic models also reproduced the imposed error directions.
+Thus, contamination rate mattered, but the relationship between true content
+and assigned label mattered more than the presence of irrelevant images alone.
+\end{abstract}

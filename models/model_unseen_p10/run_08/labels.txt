@@ -1,0 +1,3 @@
+0 airplane
+1 monkey
+2 truck

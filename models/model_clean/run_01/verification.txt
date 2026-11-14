@@ -1,0 +1,22 @@
+Verification date: 2026-11-14 (Asia/Seoul)
+Environment: Python 3.10.0, TensorFlow 2.15.0, NumPy 1.26.4, OpenCV 4.11.0
+Model file: keras_model.h5
+Input shape: (None, 224, 224, 3)
+Output shape: (None, 3)
+Labels: airplane, monkey, truck
+Test data: 50 clean images per class (150 total)
+
+Confusion matrix (rows=true, columns=predicted):
+              airplane  monkey  truck
+airplane            45       1      4
+monkey               0      48      2
+truck                0       1     49
+
+Per-class accuracy:
+- airplane: 90.00% (45/50)
+- monkey: 96.00% (48/50)
+- truck: 98.00% (49/50)
+
+Overall accuracy: 94.67% (142/150)
+
+Status: PASS
